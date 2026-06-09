@@ -81,7 +81,7 @@ LoraConfig(
 - Validation du pipeline LoRA ✓
 
 **Modèle fine-tuné disponible sur Hugging Face :**  
-🤗 [bachir6c/mistral-mam-lora](https://huggingface.co/bachir6c/mistral-mam-lora)
+ [bachir6c/mistral-mam-lora](https://huggingface.co/bachir6c/mistral-mam-lora)
 
 ---
 
