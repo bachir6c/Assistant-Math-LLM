@@ -43,7 +43,7 @@ Fine-tuning the 7.2B-parameter Mistral architecture using **Low-Rank Adaptation 
 By freezing base model weights and inserting low-rank decomposition matrices ($r=8, \alpha=16$) targeting key linear projections (`q_proj`, `k_proj`, `v_proj`, `o_proj`), trainable parameter count was slashed by over 1,000×:
 
 | Model Setup | Total Parameters | Trainable Parameters | Trainable % |
-| :--- | :---: | :---: | :---: |
+| :---: | :---: | :---: | :---: |
 | Full Mistral-7B | 7,241,732,096 | 7,241,732,096 | 100.0% |
 | **LoRA Adapter (Ours)** | 7,248,547,840 | **6,815,744** | **0.094%** |
 
@@ -80,7 +80,8 @@ Below is a direct comparison between base Mistral-7B and the fine-tuned LoRA ada
   She has 12 apples left.
   Then she eats 3: 12 - 3 = 9.
   #### 9
-Repository Structure
+### Repository Structure
+
 Plaintext
 ├── notebooks/                 # Research and prototyping notebooks
 │   ├── fine_tuning.ipynb      # End-to-end Mistral-7B LoRA fine-tuning pipeline
@@ -92,14 +93,15 @@ Plaintext
 ├── loss_fine_tuning.png       # Loss curve for Part 2
 ├── comparaison_parametres.png # Trainable parameter comparison chart
 └── README.md
-Key Takeaways & Perspectives
+
+### Key Takeaways & Perspectives
 Low-Rank Efficiency: Adapting < 0.1% of weights is sufficient to steer a 7B foundation model toward mathematical reasoning formats without catastrophic forgetting.
 
 Hardware Constrained Fine-Tuning: Successfully established a reproducible pipeline executing within the 16 GB VRAM budget of a cloud T4 instance.
 
 Next Steps: Scaling training duration across full dataset epochs, evaluating zero-shot mathematical benchmarks (MATH / GSM8K accuracy testing), and serving adapters via a low-latency vLLM endpoint.
 
-References
+### References
 Vaswani et al. (2017) — Attention Is All You Need (NeurIPS)
 
 Hu et al. (2021) — LoRA: Low-Rank Adaptation of Large Language Models
