@@ -31,29 +31,11 @@ To master the underlying mathematical and tensor operations of modern Large Lang
 * **Trainable Parameters**: 51,702,016 parameters.
 * **Loss Convergence**: Dropped from **10.46 down to 0.02** over 200 epochs, demonstrating mathematical correctness and gradient flow stability.
 
-![Mini-Transformer Loss Curve](loss_mini_transformer.png)
+![Mini-Transformer Loss Curve](./loss_mini_transformer.png)
 
 ---
 
 ## Part 2 — Parameter-Efficient Fine-Tuning (LoRA) on Mistral-7B
-
-### Qualitative Reasoning Evaluation
-
-Below is a direct comparison between base Mistral-7B and the fine-tuned LoRA adapter on a multi-step word problem from GSM8K:
-
-> **Prompt:**  
-> `### Question:`  
-> `Janet has 24 apples. She gives half to her friend and eats 3. How many does she have left?`  
-> `### Answer:`
-
-* **Base Mistral-7B:** Generates unstructured or generic continuation without strictly isolating the sequence of arithmetic steps.
-* **Fine-Tuned Mistral (LoRA - Ours):** Adopts the target step-by-step reasoning pattern (*Chain-of-Thought*):
-  ```text
-  Janet starts with 24 apples.
-  She gives half to her friend: 24 / 2 = 12 apples.
-  She has 12 apples left.
-  Then she eats 3: 12 - 3 = 9.
-  #### 9
 
 Fine-tuning the 7.2B-parameter Mistral architecture using **Low-Rank Adaptation (LoRA)** on the **GSM8K** mathematical reasoning dataset on constrained hardware (NVIDIA Tesla T4).
 
@@ -65,7 +47,7 @@ By freezing base model weights and inserting low-rank decomposition matrices ($r
 | Full Mistral-7B | 7,241,732,096 | 7,241,732,096 | 100.0% |
 | **LoRA Adapter (Ours)** | 7,248,547,840 | **6,815,744** | **0.094%** |
 
-![Parameter Comparison](comparaison_parametres.png)
+![Parameter Comparison](./comparaison_parametres.png)
 
 ### Training Configuration & Optimization
 * **Hardware**: Single NVIDIA Tesla T4 (16 GB VRAM)
@@ -79,22 +61,39 @@ By freezing base model weights and inserting low-rank decomposition matrices ($r
 ### Loss Convergence
 Training loss declined consistently from **1.025 to 0.722 (-29.6%)**, confirming effective weight adaptation to multistep reasoning prompt structures.
 
-![Fine-Tuning Loss Curve](loss_fine_tuning.png)
+![Fine-Tuning Loss Curve](./loss_fine_tuning.png)
 
----
+### Qualitative Reasoning Evaluation
 
-## Repository Structure
+Below is a direct comparison between base Mistral-7B and the fine-tuned LoRA adapter on a multi-step word problem from GSM8K:
 
-```text
-├── transformers.ipynb         # Pure PyTorch Transformer implementation & validation
-├── fine_tuning.ipynb          # End-to-end Mistral-7B LoRA fine-tuning pipeline
+> **Prompt:**  
+> `### Question:`  
+> `Janet has 24 apples. She gives half to her friend and eats 3. How many does she have left?`  
+> `### Answer:`
+
+* **Base Mistral-7B:** Generates unstructured or generic text continuation without isolating the sequence of arithmetic steps.
+* **Fine-Tuned Mistral (LoRA - Ours):** Strictly enforces step-by-step arithmetic resolution (*Chain-of-Thought*):
+  ```text
+  Janet starts with 24 apples.
+  She gives half to her friend: 24 / 2 = 12 apples.
+  She has 12 apples left.
+  Then she eats 3: 12 - 3 = 9.
+  #### 9
+Repository Structure
+Plaintext
+├── notebooks/                 # Research and prototyping notebooks
+│   ├── fine_tuning.ipynb      # End-to-end Mistral-7B LoRA fine-tuning pipeline
+│   └── transformers.ipynb     # Transformer scratchpad and preliminary experiments
+├── src/                       # Production-grade source code
+│   ├── model.py               # Pure PyTorch Transformer architecture implementation
+│   └── evaluate.py            # Comparative evaluation pipeline (Base vs. LoRA)
 ├── loss_mini_transformer.png  # Loss curve for Part 1
 ├── loss_fine_tuning.png       # Loss curve for Part 2
 ├── comparaison_parametres.png # Trainable parameter comparison chart
 └── README.md
-
 Key Takeaways & Perspectives
-Low-Rank Efficiency: Demonstrated that adapting < 0.1% of weights is sufficient to steer a 7B foundation model toward mathematical reasoning formats without catastrophic forgetting.
+Low-Rank Efficiency: Adapting < 0.1% of weights is sufficient to steer a 7B foundation model toward mathematical reasoning formats without catastrophic forgetting.
 
 Hardware Constrained Fine-Tuning: Successfully established a reproducible pipeline executing within the 16 GB VRAM budget of a cloud T4 instance.
 
