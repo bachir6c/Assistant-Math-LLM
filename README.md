@@ -80,9 +80,9 @@ Below is a direct comparison between base Mistral-7B and the fine-tuned LoRA ada
   She has 12 apples left.
   Then she eats 3: 12 - 3 = 9.
   #### 9
-### Repository Structure
+## Repository Structure
 
-Plaintext
+```text
 ├── notebooks/                 # Research and prototyping notebooks
 │   ├── fine_tuning.ipynb      # End-to-end Mistral-7B LoRA fine-tuning pipeline
 │   └── transformers.ipynb     # Transformer scratchpad and preliminary experiments
@@ -93,17 +93,20 @@ Plaintext
 ├── loss_fine_tuning.png       # Loss curve for Part 2
 ├── comparaison_parametres.png # Trainable parameter comparison chart
 └── README.md
+```
 
-### Key Takeaways & Perspectives
-Low-Rank Efficiency: Adapting < 0.1% of weights is sufficient to steer a 7B foundation model toward mathematical reasoning formats without catastrophic forgetting.
+---
 
-Hardware Constrained Fine-Tuning: Successfully established a reproducible pipeline executing within the 16 GB VRAM budget of a cloud T4 instance.
+## Key Takeaways & Perspectives
 
-Next Steps: Scaling training duration across full dataset epochs, evaluating zero-shot mathematical benchmarks (MATH / GSM8K accuracy testing), and serving adapters via a low-latency vLLM endpoint.
+* **Low-Rank Efficiency** : Adapting < 0.1% of weights is sufficient to steer a 7B foundation model toward mathematical reasoning formats without catastrophic forgetting.
+* **Hardware Constrained Fine-Tuning** : Successfully established a reproducible pipeline executing within the 16 GB VRAM budget of a cloud T4 instance.
+* **Next Steps** : Scaling training duration across full dataset epochs, evaluating zero-shot mathematical benchmarks (MATH / GSM8K accuracy testing), and serving adapters via a low-latency vLLM endpoint.
 
-### References
-Vaswani et al. (2017) — Attention Is All You Need (NeurIPS)
+---
 
-Hu et al. (2021) — LoRA: Low-Rank Adaptation of Large Language Models
+## References
 
-Jiang et al. (2023) — Mistral 7B
+* Vaswani et al. (2017) — *Attention Is All You Need* (NeurIPS)
+* Hu et al. (2021) — *LoRA: Low-Rank Adaptation of Large Language Models*
+* Jiang et al. (2023) — *Mistral 7B*
