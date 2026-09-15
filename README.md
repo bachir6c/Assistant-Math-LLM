@@ -99,7 +99,8 @@ Below is a direct comparison between base Mistral-7B and the fine-tuned LoRA ada
 
 ## Key Takeaways & Perspectives
 
-* **Low-Rank Efficiency** : Adapting < 0.1% of weights is sufficient to steer a 7B foundation model toward mathematical reasoning formats without catastrophic forgetting.
+* **Low-Rank Efficiency** : Adapting < 0.1% of weights is sufficient to steer a 7B foundation model toward mathematical reasoning formats ,the experiment demonstrates parameter-efficient adaptation of Mistral-7B with only 0.094% of parameters updated.
+.
 * **Hardware Constrained Fine-Tuning** : Successfully established a reproducible pipeline executing within the 16 GB VRAM budget of a cloud T4 instance.
 * **Next Steps** : Scaling training duration across full dataset epochs, evaluating zero-shot mathematical benchmarks (MATH / GSM8K accuracy testing), and serving adapters via a low-latency vLLM endpoint.
 
